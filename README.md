@@ -90,6 +90,7 @@ docker restart php-fpm
 ```
 Xdebug logs are saved to "xdebug/logs" folder.
 - Version Control:
+    - Main Menu → Settings or Ctrl+Alt+S 
     - Expand the "Version Control" → Select "Directory Mappings"
     - Uncheck "Enable automatic mapping detection"
     - Remove all paths except "./php-docker-dev-env/project"
@@ -106,7 +107,7 @@ docker exec -it cli bash
 ```
 Remove the existing test application:
 ```bash
-rm -rf ./*
+rm -rf ./* ./.??*
 ```
 Install a Laravel application using Composer:
 ```bash
