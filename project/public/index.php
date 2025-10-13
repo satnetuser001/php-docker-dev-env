@@ -4,7 +4,7 @@ echo <<<HTML
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Application in pure PHP</title>
+  <title>A pure PHP application</title>
   <style>
     body { 
       font-family: sans-serif;
@@ -23,7 +23,7 @@ echo <<<HTML
   </style>
 </head>
 <body>
-  <h1>Application in pure PHP</h1>
+  <h1>A pure PHP application</h1>
 </body>
 </html>
 HTML;
