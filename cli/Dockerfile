@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     curl \
     unzip \
-    p7zip-full
+    p7zip-full \
+    tree
 
 # add PHP repository
 RUN add-apt-repository -y ppa:ondrej/php
@@ -38,6 +39,15 @@ ARG COMPOSER_VERSION
 
 # install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer${COMPOSER_VERSION};
+
+# build argument for Node.js version
+ARG NODE_VERSION
+
+# add Node.js repository (for npm)
+RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
+
+# install Node.js, which includes npm
+RUN apt-get update && apt-get install -y nodejs
 
 # clearing cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
