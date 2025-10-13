@@ -14,7 +14,7 @@ services:
       TZ: ${TZ}
     volumes:
       - type: bind
-        source: /project
+        source: ./project
         target: /project
     networks:
       - php-docker-dev-env
