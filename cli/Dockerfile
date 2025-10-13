@@ -1,5 +1,5 @@
 # For correct container work, current host system user must be set in
-# compose.yaml, otherwise laravel-development directory owner will be root.
+# compose.yaml, otherwise in "project" directory owner will be root.
 # Also, the time zone environment variable must be set in compose.yam to
 # install php without interactive questionsl.
 
@@ -9,7 +9,9 @@ FROM ubuntu:latest
 # install system dependencies
 RUN apt-get update && apt-get install -y \
     software-properties-common \
-    curl
+    curl \
+    unzip \
+    p7zip-full
 
 # add PHP repository
 RUN add-apt-repository -y ppa:ondrej/php
@@ -27,7 +29,9 @@ RUN apt-get update && apt-get install -y \
     php${PHP_VERSION}-mbstring \
     php${PHP_VERSION}-zip \
     php${PHP_VERSION}-tokenizer \
-    php${PHP_VERSION}-common
+    php${PHP_VERSION}-common \
+    php${PHP_VERSION}-mysql \
+    php${PHP_VERSION}-pcov
 
 # build argument for Composer version
 ARG COMPOSER_VERSION
@@ -39,10 +43,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # set and create a working directory in image
-WORKDIR /app
+WORKDIR /project
 
-# build argument for Laravel version
-ARG LARAVEL_VERSION
-
-# remove the old directory and create new Laravel project
-ENTRYPOINT ["sh", "-c", "rm -rf laravel-development && composer create-project --prefer-dist laravel/laravel${LARAVEL_VERSION} laravel-development"]
+# infinite task to prevent container from stopping
+ENTRYPOINT ["sleep", "infinity"]

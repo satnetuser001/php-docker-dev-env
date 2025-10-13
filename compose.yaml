@@ -1,64 +1,23 @@
 services:
 
-  composer:
-    container_name: composer
+  cli:
+    container_name: cli
     build:
-      context: ./composer
+      context: ./cli
       dockerfile: Dockerfile
       args:
         PHP_VERSION: ${PHP_VERSION:-}
         COMPOSER_VERSION: ${COMPOSER_VERSION:+ --version=${COMPOSER_VERSION}}
-        LARAVEL_VERSION: ${LARAVEL_VERSION:+:${LARAVEL_VERSION}}
     user: ${CUID:-0}:${CGID:-0}
+    restart: unless-stopped
     environment:
       TZ: ${TZ}
-    profiles:
-      - create-project
-      - delete-development-environment
     volumes:
       - type: bind
-        source: .
-        target: /app
+        source: /project
+        target: /project
     networks:
-      - laravel-development
-
-  artisan:
-    container_name: artisan
-    build:
-      context: ./artisan
-      dockerfile: Dockerfile
-      args:
-        PHP_VERSION: ${PHP_VERSION:+${PHP_VERSION}-}
-    user: ${CUID:-0}:${CGID:-0}
-    restart: unless-stopped
-    depends_on:
-      composer:
-        condition: service_completed_successfully
-        required: false
-    volumes:
-      - type: bind
-        source: ./laravel-development
-        target: /app
-    networks:
-      - laravel-development
-
-  nginx:
-    container_name: nginx
-    image: nginx:latest
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    depends_on:
-      - php-fpm
-    volumes:
-      - type: bind
-        source: ./laravel-development
-        target: /app
-      - type: bind
-        source: ./nginx/conf.d
-        target: /etc/nginx/conf.d
-    networks:
-      - laravel-development
+      - php-docker-dev-env
 
   php-fpm:
     container_name: php-fpm
@@ -71,15 +30,11 @@ services:
     user: ${CUID:-0}:${CGID:-0}
     restart: unless-stopped
     environment:
-      PHP_IDE_CONFIG: "serverName=${IDE_SERVER_NAME:-laravel-development-in-docker}"
-    depends_on:
-      composer:
-        condition: service_completed_successfully
-        required: false
+      PHP_IDE_CONFIG: "serverName=${IDE_SERVER_NAME:-php-docker-dev-env}"
     volumes:
       - type: bind
-        source: ./laravel-development
-        target: /app
+        source: ./project
+        target: /project
       - type: bind
         source: ./xdebug/xdebug.ini
         target: /usr/local/etc/php/conf.d/xdebug.ini
@@ -87,9 +42,27 @@ services:
         source: ./xdebug/logs
         target: /xdebug-logs
     networks:
-      - laravel-development
+      - php-docker-dev-env
     extra_hosts:
       host.docker.internal: host-gateway
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - php-fpm
+    volumes:
+      - type: bind
+        source: ./project
+        target: /project
+      - type: bind
+        source: ./nginx/conf.d
+        target: /etc/nginx/conf.d
+    networks:
+      - php-docker-dev-env
 
   mysql:
     container_name: mysql
@@ -97,14 +70,14 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root-password
-      MYSQL_DATABASE: laravel
+      MYSQL_DATABASE: project
       TZ: ${TZ}
     secrets:
       - mysql-root-password
     volumes:
-      - laravel-development-mysql-data:/var/lib/mysql
+      - php-docker-dev-env-mysql-data:/var/lib/mysql
     networks:
-      - laravel-development
+      - php-docker-dev-env
 
   phpmyadmin:
     container_name: phpmyadmin
@@ -118,7 +91,7 @@ services:
     depends_on:
       - mysql
     networks:
-      - laravel-development
+      - php-docker-dev-env
 
   production:
     build:
@@ -143,10 +116,10 @@ secrets:
     file: ./secrets/mysql_root_password.txt
 
 volumes:
-  laravel-development-mysql-data:
-    name: laravel-development-mysql-data
+  php-docker-dev-env-mysql-data:
+    name: php-docker-dev-env-mysql-data
 
 networks:
-  laravel-development:
-    name: laravel-development
+  php-docker-dev-env:
+    name: php-docker-dev-env
     driver: bridge

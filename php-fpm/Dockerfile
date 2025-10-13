@@ -18,7 +18,7 @@ RUN pecl install xdebug${XDEBUG_VERSION} \
 RUN mkdir /xdebug-logs
 
 # set and create a working directory in image
-WORKDIR /app
+WORKDIR /project
 
 # declare expose port
 EXPOSE 9000

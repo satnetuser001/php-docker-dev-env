@@ -8,7 +8,7 @@ FROM php:${PHP_VERSION}cli
 WORKDIR /app
 
 # copy laravel application to image in WORKDIR
-COPY ./laravel-development /app
+COPY ./project /app
 
 # run artisan server on port 8000 in container
 ENTRYPOINT ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
