@@ -78,7 +78,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
         - Debugger: ```Xdebug```
     - Check ```Use path mappings```
     - In mapping settings specify:
-        - File/Directory: absolute path to ```project``` directory in your ```php-docker-dev-env```
+        - File/Directory: absolute path to ```php-docker-dev-env/project``` directory
         - Absolute path on the server: ```/project```
     - Click ```Aplly```
 - Version Control:
