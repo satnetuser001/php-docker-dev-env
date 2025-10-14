@@ -52,6 +52,7 @@ Up all development containers.
 ```bash
 CUID=$(id -u) CGID=$(id -g) docker compose up -d
 ```
+Note: CUID=$(id -u) CGID=$(id -g) - setting in the images the name ID and group ID of the current user of the host system to set the correct owner for the application files.
 
 If you need to delete the development environment: all containers and network.  
 The ```php-docker-dev-env/project``` directory and ```php-docker-dev-env-mysql-data``` volume with the ```project``` database will not be deleted and will remain unchanged.  
@@ -88,7 +89,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - Click ```OK```  
 
 In browser, install ```Xdebug Helper by JetBrains``` extension, and enable Debug mode (green bug icon in toolbar).
-Xdebug logs are saved to ```xdebug/logs``` folder. Xdebug settings are stored in ```xdebug/xdebug.ini```. Restart the php-fpm container after changing settings:
+Xdebug logs are saved to ```xdebug/logs``` directory. Xdebug settings are stored in ```xdebug/xdebug.ini``` file. Restart the php-fpm container after changing settings:
 ```bash
 docker restart php-fpm
 ```
@@ -126,7 +127,7 @@ DB_DATABASE=project
 DB_USERNAME=root
 DB_PASSWORD=1077
 ```
-Note: DB_PASSWORD must be value from the file ```php-docker-dev-env/secrets/mysql_root_password.txt```.
+Note: DB_PASSWORD must be ```value``` from the file "php-docker-dev-env/secrets/mysql_root_password.txt".
 
 In the "cli" service container make a migration for the MySQL database:  
 ```php
@@ -176,6 +177,3 @@ docker compose build stand-alone
 ```
 Note: make sure that the database files, such as SQLite, are located within the application in the ```php-docker-dev-env/project``` directory.  
 Note: a stand-alone application image will have only SQLite DBMS, so you need to add the required DBMS to ```php-docker-dev-env/build-app/stand-alone.Dockerfile``` if needed.
-
-#### Other
-CUID=$(id -u) CGID=$(id -g) - setting in the images the name ID and group ID of the current user of the host system to set the correct owner for the application files.
