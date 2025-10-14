@@ -54,7 +54,7 @@ CUID=$(id -u) CGID=$(id -g) docker compose up -d
 ```
 
 If you need to delete the development environment: all containers and network.  
-The ```project``` directory and ```php-docker-dev-env-mysql-data``` volume with the ```project``` database will not be deleted and will remain unchanged.  
+The ```php-docker-dev-env/project``` directory and ```php-docker-dev-env-mysql-data``` volume with the ```project``` database will not be deleted and will remain unchanged.  
 ```bash
 docker compose down
 ```
@@ -72,7 +72,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - Expand the "PHP" section → Select "Servers"
     - Click ```+```
     - Fill in the fields:
-        - Name: ```text php-docker-dev-env```
+        - Name: ```php-docker-dev-env```
         - Host: ```localhost```
         - Port: ```8080```
         - Debugger: ```Xdebug```
