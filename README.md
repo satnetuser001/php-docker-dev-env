@@ -1,6 +1,6 @@
 ### PHP development environment with a MySQL database in Docker containers.
 It supports applications built with plain PHP, Laravel, Symfony, or other PHP frameworks.  
-Block-diagram of development environment:
+Block-diagram of a development environment:
 <pre>
 +-----------------+
 | request from    |
@@ -46,7 +46,7 @@ git clone https://github.com/satnetuser001/php-docker-dev-env.git
 ```
 Rename the root directory ```php-docker-dev-env``` to your project name. This is important because Docker will use this name when building images. Then, navigate to this directory.
 
-Optional step: specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```.env``` file, otherwise, the latest versions will be used. For the MySQL database, change the root password in the ```secrets/mysql_root_password.txt``` file. Exclude the ```secrets``` directory from Git commits by adding it to the ```.gitignore``` file.
+Optional step: specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```php-docker-dev-env/.env``` file, otherwise, the latest versions will be used. For the MySQL database, change the root password in the ```php-docker-dev-env/secrets/mysql_root_password.txt``` file. Exclude the ```php-docker-dev-env/secrets``` directory from Git commits by adding it to the ```php-docker-dev-env/.gitignore``` file.
 
 Up all development containers:  
 ```bash
@@ -106,10 +106,10 @@ docker restart php-fpm
 
 ### Step 3 - development process.
 
-Development directory is ```php-docker-dev-env/project```. Feel free to create something incredible!) To see the result open in the browser [localhost:8080](http://localhost:8080).  
+Development directory is ```php-docker-dev-env/project```. Feel free to create something incredible!) To see the result, open in the browser [localhost:8080](http://localhost:8080).  
 
 ##### Example of Laravel application setup.
-Attach to the "cli" service container:  
+Attach to the ```cli``` service container:  
 ```bash
 docker exec -it cli bash
 ```
@@ -122,9 +122,9 @@ Install a Laravel application using Composer:
 composer create-project --prefer-dist laravel/laravel .
 ```
 
-###### Setting up a connection between Laravel and MySQL database.  
+##### Setting up a connection between Laravel and MySQL database.  
 By default, the latest versions of Laravel use an SQLite database. So it needs to take several next steps to replace the database.
-In the "cli" service container make a rollback migration for the SQLite database:  
+In the ```cli``` service container make a rollback migration for the SQLite database:  
 ```php
 php artisan migrate:rollback
 ```
@@ -138,14 +138,14 @@ DB_DATABASE=project
 DB_USERNAME=root
 DB_PASSWORD=1077
 ```
-Note: DB_PASSWORD must be ```value``` from the file "php-docker-dev-env/secrets/mysql_root_password.txt".
+Note: DB_PASSWORD must be ```value``` from the file ```php-docker-dev-env/secrets/mysql_root_password.txt```.
 
-In the "cli" service container make a migration for the MySQL database:  
+In the ```cli``` service container make a migration for the MySQL database:  
 ```php
 php artisan migrate
 ```
 
-To see the phpMyAdmin page open in the browser [localhost:8090](http://localhost:8090). Use ```root``` for the "Username" and ```value``` from the file "php-docker-dev-env/secrets/mysql_root_password.txt" for the "Password".
+To see the phpMyAdmin page open in the browser [localhost:8090](http://localhost:8090). Use ```root``` for the "Username" and ```1077``` value from ```php-docker-dev-env/secrets/mysql_root_password.txt``` for the "Password".
 
 ### Step 4 - build application image after finishing development.
 
