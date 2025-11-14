@@ -90,6 +90,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - Main Menu → View → Tool Windows → Database
     - Click ```+``` → Data Source → Select ```MySQL```
     - Fill in the fields:
+        - Driver: ```MySQL 9```
         - Host: ```localhost```
         - Port: ```8306```
         - User: ```root```
