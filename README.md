@@ -176,13 +176,13 @@ It is supposed that the production environment architecture is similar to the fo
 
 Prepare your application for deployment according to the documentation of the framework you are using.
 
-To build an image for a production environment, exec in the root directory of the project:
+To build an image for a production environment, exec in ```php-docker-dev-env``` directory:
 ```bash
 docker compose build production
 ```
 Note: remember to rename the built image before push.
 
-If you want to build a stand-alone container from your application, exec in the root directory of the project:
+If you want to build a stand-alone container from your application, exec ```php-docker-dev-env``` directory:
 ```bash
 docker compose build stand-alone
 ```
