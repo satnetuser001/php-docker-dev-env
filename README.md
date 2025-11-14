@@ -70,8 +70,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - For "Configuration files" select ```./compose.yaml```, for "Service" select ```php-fpm```
     - Click ```OK``` twice
 - PHP server:
-    - Expand the "PHP" section → Select "Servers"
-    - Click ```+```
+    - Expand the "PHP" section → Select "Servers" → Click ```+```
     - Fill in the fields:
         - Name: ```php-docker-dev-env```
         - Host: ```localhost```
@@ -87,7 +86,16 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - Uncheck ```Enable automatic mapping detection```
     - Remove all paths except absolute path to ```php-docker-dev-env/project```
     - Click ```OK```  
-
+- Database connection:
+    - Main Menu → View → Tool Windows → Database
+    - Click ```+``` → Data Source → Select ```MySQL```
+    - Fill in the fields:
+        - Host: ```localhost```
+        - Port: ```8306```
+        - User: ```root```
+        - Password: ```1077``` value from ```php-docker-dev-env/secrets/mysql_root_password.txt```
+        - Database: ```project```
+    - Click ```OK```
 In browser, install ```Xdebug Helper by JetBrains``` extension, and enable Debug mode (green bug icon in toolbar).
 Xdebug logs are saved to ```xdebug/logs``` directory. Xdebug settings are stored in ```xdebug/xdebug.ini``` file. Restart the php-fpm container after changing settings:
 ```bash
