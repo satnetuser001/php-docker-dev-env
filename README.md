@@ -182,7 +182,7 @@ docker compose build production
 ```
 Note: remember to rename the built image before push.
 
-If you want to build a stand-alone container from your application, exec ```php-docker-dev-env``` directory:
+If you want to build a stand-alone container from your application, exec in ```php-docker-dev-env``` directory:
 ```bash
 docker compose build stand-alone
 ```
