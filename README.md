@@ -1,6 +1,5 @@
-### This is a PHP development environment with a MySQL database in Docker containers.
+### PHP development environment with a MySQL database in Docker containers.
 It supports applications built with plain PHP, Laravel, Symfony, or other PHP frameworks.  
-
 Block-diagram of development environment:
 <pre>
 +-----------------+
@@ -49,19 +48,19 @@ Rename the root directory ```php-docker-dev-env``` to your project name. This is
 
 Optional step: specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```.env``` file, otherwise, the latest versions will be used. For the MySQL database, change the root password in the ```secrets/mysql_root_password.txt``` file. Exclude the ```secrets``` directory from Git commits by adding it to the ```.gitignore``` file.
 
-Up all development containers.  
+Up all development containers:  
 ```bash
 CUID=$(id -u) CGID=$(id -g) docker compose up -d
 ```
-Note: CUID=$(id -u) CGID=$(id -g) - setting in the images the name ID and group ID of the current user of the host system to set the correct owner for the application files.
+Note: CUID=$(id -u) CGID=$(id -g) - setting in the images the name ID and group ID of the current user of the host system to set the correct owner for the application files.  
 
-If you need to delete the development environment: all containers and network.  
-The ```php-docker-dev-env/project``` directory and ```php-docker-dev-env-mysql-data``` volume with the ```project``` database will not be deleted and will remain unchanged.  
+If you need to delete the development environment (all containers and network):
 ```bash
 docker compose down
 ```
-  
-### Step 2 - setting up PhpStorm connection to Xdebug running in a container, and version control.  
+Note: the ```php-docker-dev-env/project``` directory and ```php-docker-dev-env-mysql-data``` volume with the ```project``` database will not be deleted and will remain unchanged.  
+
+### Step 2 - setting up PhpStorm connection to Xdebug running in a container, version control, and database connection.  
 
 Open the root directory of the project, which is named ```php-docker-dev-env``` by default, in PhpStorm, and configure the following settings:  
 - CLI interpreter:
@@ -96,12 +95,14 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
         - User: ```root```
         - Password: ```1077``` value from ```php-docker-dev-env/secrets/mysql_root_password.txt```
         - Database: ```project```
-    - Click ```OK```
-In browser, install ```Xdebug Helper by JetBrains``` extension, and enable Debug mode (green bug icon in toolbar).
-Xdebug logs are saved to ```xdebug/logs``` directory. Xdebug settings are stored in ```xdebug/xdebug.ini``` file. Restart the php-fpm container after changing settings:
+    - Click ```OK```  
+- In browser, install ```Xdebug Helper by JetBrains``` extension, and enable Debug mode (green bug icon in toolbar).  
+
+Xdebug logs are saved to ```xdebug/logs``` directory. Xdebug settings are stored in ```xdebug/xdebug.ini``` file.  
+Restart the php-fpm container after changing settings:
 ```bash
 docker restart php-fpm
-```
+```  
 
 ### Step 3 - development process.
 
@@ -121,7 +122,8 @@ Install a Laravel application using Composer:
 composer create-project --prefer-dist laravel/laravel .
 ```
 
-Setting up a connection between Laravel and MySQL database. By default, the latest versions of Laravel use an SQLite database. So it needs to take several next steps to replace the database.
+###### Setting up a connection between Laravel and MySQL database.  
+By default, the latest versions of Laravel use an SQLite database. So it needs to take several next steps to replace the database.
 In the "cli" service container make a rollback migration for the SQLite database:  
 ```php
 php artisan migrate:rollback
