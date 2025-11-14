@@ -138,7 +138,7 @@ DB_DATABASE=project
 DB_USERNAME=root
 DB_PASSWORD=1077
 ```
-Note: DB_PASSWORD must be ```value``` from the file ```php-docker-dev-env/secrets/mysql_root_password.txt```.
+Note: DB_PASSWORD must be ```value``` from ```php-docker-dev-env/secrets/mysql_root_password.txt```.
 
 In the ```cli``` service container make a migration for the MySQL database:  
 ```php
