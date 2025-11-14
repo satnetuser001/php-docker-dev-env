@@ -34,9 +34,9 @@ Block-diagram of development environment:
 </pre>
 
 System requirements:  
-linux kernel version 6.14.0-33-generic  
-docker engine version 28.5.1  
-docker compose version 2.40.0  
+linux kernel version 6.17.0-6-generic  
+docker engine version 28.5.2  
+docker compose version 2.40.3  
 unoccupied ports 8080 8090 8306  
 
 ### Step 1 - building development environment.  
