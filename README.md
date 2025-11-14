@@ -12,8 +12,8 @@ Block-diagram of development environment:
 +-----------------+         | for working with artisan, |
 | nginx container |         | Composer, Node.js, npm    |
 | port 8080       |         +---------------------------+
-+-----------------+                |
-         |                         V
++-----------------+                  |
+         |                           V
          V                      +-----------------------+
 +-------------------+           | "project" directory   |
 | php-fpm container |           | with SQLite files     |
@@ -24,11 +24,12 @@ Block-diagram of development environment:
    |   | phpmyadmin container |
    |   | port 8090            |
    |   +----------------------+
-   |        |
-   V        V           +-------------------------------+
-+-----------------+     | "project" database in         |
-| mysql           |---> | php-docker-dev-env-mysql-data |
-| container       |     | volume                        |
+   |          |
+   V          V
++-----------------+     +-------------------------------+
+| mysql           |     | "project" database in         |
+| container       |---> | php-docker-dev-env-mysql-data |
+| port 8306       |     | volume                        |
 +-----------------+     +-------------------------------+
 </pre>
 
@@ -36,7 +37,7 @@ System requirements:
 linux kernel version 6.14.0-33-generic  
 docker engine version 28.5.1  
 docker compose version 2.40.0  
-unoccupied ports 8080 8090  
+unoccupied ports 8080 8090 8306  
 
 ### Step 1 - building development environment.  
 
