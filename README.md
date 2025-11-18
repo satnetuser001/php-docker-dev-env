@@ -1,5 +1,5 @@
 ### PHP development environment with a MySQL database in Docker containers.
-It supports applications built with plain PHP, Laravel, Symfony, or other PHP frameworks.  
+Supports applications built with plain PHP, Laravel, Symfony, or other PHP frameworks.  
 Block-diagram of a development environment:
 <pre>
 +-----------------+
@@ -38,6 +38,14 @@ docker engine version 28.5.2
 docker compose version 2.40.3  
 unoccupied ports 8080 8090 8306  
 
+### Quick reference
+```bash
+docker exec -it cli bash
+```
+```bash
+php artisan migrate:fresh --seed
+```
+
 ### Step 1 - building development environment.  
 
 Pull this application from the GitHub repository:
@@ -60,17 +68,17 @@ docker compose down
 ```
 Note: the ```php-docker-dev-env/project``` directory and ```php-docker-dev-env-mysql-data``` volume with the ```project``` database will not be deleted and will remain unchanged.  
 
-### Step 2 - setting up PhpStorm connection to Xdebug running in a container, version control, and database connection.  
+### Step 2 - setting up PhpStorm.  
 
 Open the root directory of the project, which is named ```php-docker-dev-env``` by default, in PhpStorm, and configure the following settings:  
 - CLI interpreter:
     - Main Menu → Settings or Ctrl+Alt+S
-    - PHP → CLI Interpreter → Click ```...```
+    - Select "PHP" section → Next to "CLI Interpreter" Click ```...```
     - Click ```+``` → Select ```From Docker, Vagrant, VM, WSL, Remote...``` → Check ```Docker Compose```
     - For "Configuration files" select ```./compose.yaml```, for "Service" select ```php-fpm```
     - Click ```OK``` twice
 - PHP server:
-    - Expand the "PHP" section → Select "Servers" → Click ```+```
+    - Expand "PHP" section → Select "Servers" → Click ```+```
     - Fill in the fields:
         - Name: ```php-docker-dev-env```
         - Host: ```localhost```
@@ -81,6 +89,29 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
         - File/Directory: absolute path to ```php-docker-dev-env/project``` directory
         - Absolute path on the server: ```/project```
     - Click ```Aplly```
+- PHP_CodeSniffer
+    - Expand "Quality Tools" section → Select "PHP_CodeSniffer"
+    - PHP_CodeSniffer inspection: ```on```
+    - Next to "Configuration" Click ```...```
+    - Delete ```By default project interpreter``` and ```System PHP``` by clicking ```-```
+    - Click ```+``` → Select "php-fpm" → Click ```OK```
+    - Fill in the field:
+        - PHP_CodeSniffer path: ```/usr/local/bin/phpcs```
+    - Click ```Validate``` to test — it should display ```OK```
+    - Click ```OK```
+- PHP-CS-Fixer
+    - Select "PHP-CS-Fixer"
+    - PHP CS Fixer inspection: ```on```
+    - Next to "Configuration" Click ```...```
+    - Delete ```By default project interpreter``` and ```System PHP``` by clicking ```-```
+    - Click ```+``` → Select "php-fpm" → Click ```OK```
+    - Fill in the field:
+        - PHP CS Fixer path: ```/usr/local/bin/php-cs-fixer```
+    - Click ```Validate``` to test — it should display ```OK```
+    - Click ```OK```
+- External Formatters:
+    - Select "Quality Tools" section → Check ```PHP CS Fixer```
+    - Click ```Apply```
 - Version Control:
     - Expand the "Version Control" → Select "Directory Mappings"
     - Uncheck ```Enable automatic mapping detection```
@@ -100,7 +131,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
 - In browser, install ```Xdebug Helper by JetBrains``` extension, and enable Debug mode (green bug icon in toolbar).  
 
 Xdebug logs are saved to ```xdebug/logs``` directory. Xdebug settings are stored in ```xdebug/xdebug.ini``` file.  
-Restart the php-fpm container after changing settings:
+Restart the php-fpm container after changing xdebug settings:
 ```bash
 docker restart php-fpm
 ```  
