@@ -45,6 +45,12 @@ docker exec -it cli bash
 ```bash
 php artisan migrate:fresh --seed
 ```
+```bash
+php artisan l5-swagger:generate
+```
+```bash
+php artisan test --coverage-html=coverage
+```
 
 ### Step 1 - building development environment.  
 
