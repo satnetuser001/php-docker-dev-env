@@ -92,7 +92,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
 - PHP_CodeSniffer
     - Expand "Quality Tools" section → Select "PHP_CodeSniffer"
     - PHP_CodeSniffer inspection: ```on```
-    - Next to "Configuration" Click ```...```
+    - Next to "Configuration" click ```...```
     - Delete "By default project interpreter" and "System PHP" by clicking ```-```
     - Click ```+``` → Select "php-fpm" → Click ```OK```
     - Fill "PHP_CodeSniffer path" field with ```/usr/local/bin/phpcs```
@@ -103,7 +103,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - PHP CS Fixer inspection: ```on```
     - Next to "Configuration" Click ```...```
     - Delete "By default project interpreter" and "System PHP" by clicking ```-```
-    - Click ```+``` → Select "php-fpm" → Click ```OK```
+    - Click ```+``` → Select "php-fpm" → click ```OK```
     - Fill "PHP CS Fixer path" field with ```/usr/local/bin/php-cs-fixer```
     - Click ```Validate``` to test — it should display ```OK```
     - Click ```OK```
