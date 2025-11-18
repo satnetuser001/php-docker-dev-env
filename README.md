@@ -93,20 +93,18 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - Expand "Quality Tools" section → Select "PHP_CodeSniffer"
     - PHP_CodeSniffer inspection: ```on```
     - Next to "Configuration" Click ```...```
-    - Delete ```By default project interpreter``` and ```System PHP``` by clicking ```-```
+    - Delete "By default project interpreter" and "System PHP" by clicking ```-```
     - Click ```+``` → Select "php-fpm" → Click ```OK```
-    - Fill in the field:
-        - PHP_CodeSniffer path: ```/usr/local/bin/phpcs```
+    - Fill "PHP_CodeSniffer path" field with ```/usr/local/bin/phpcs```
     - Click ```Validate``` to test — it should display ```OK```
     - Click ```OK```
 - PHP-CS-Fixer
     - Select "PHP-CS-Fixer"
     - PHP CS Fixer inspection: ```on```
     - Next to "Configuration" Click ```...```
-    - Delete ```By default project interpreter``` and ```System PHP``` by clicking ```-```
+    - Delete "By default project interpreter" and "System PHP" by clicking ```-```
     - Click ```+``` → Select "php-fpm" → Click ```OK```
-    - Fill in the field:
-        - PHP CS Fixer path: ```/usr/local/bin/php-cs-fixer```
+    - Fill "PHP CS Fixer path" field with ```/usr/local/bin/php-cs-fixer```
     - Click ```Validate``` to test — it should display ```OK```
     - Click ```OK```
 - External Formatters:
