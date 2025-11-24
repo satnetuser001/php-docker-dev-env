@@ -213,7 +213,7 @@ docker compose build stand-alone
 Note: make sure that the database files, such as SQLite, are located within the application in the ```php-docker-dev-env/project``` directory.  
 Note: a stand-alone application image will have only SQLite DBMS, so you need to add the required DBMS to ```php-docker-dev-env/build-app/stand-alone.Dockerfile``` if needed.
 
-## Quick reference <a name="reference"></a>
+#### Quick reference <a name="reference"></a>
 ```bash
 docker exec -it cli bash
 ```
