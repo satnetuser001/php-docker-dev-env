@@ -39,7 +39,7 @@ docker compose version 2.40.3
 unoccupied ports 8080 8090 8306  
 
 #### Quick reference: <a name="up"></a>  
-[CLI commands](#cli)&ensp;[PhpStorm](#phpstorm)&emsp;[Laravel](#laravel)  
+[CLI commands](#cli)&emsp[PhpStorm](#phpstorm)&emsp;[Laravel](#laravel)  
 
 ### Step 1 - building development environment.  
 
