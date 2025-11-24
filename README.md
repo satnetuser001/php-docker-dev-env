@@ -38,8 +38,8 @@ docker engine version 28.5.2
 docker compose version 2.40.3  
 unoccupied ports 8080 8090 8306  
 
-#### Quick reference <a name="up"></a>
-[CLI commands](#cli) [PhpStorm](#phpstorm) [Laravel](#laravel)  
+#### Quick reference: <a name="up"></a>
+[CLI commands](#cli)    [PhpStorm](#phpstorm)   [Laravel](#laravel)  
 
 ### Step 1 - building development environment.  
 
