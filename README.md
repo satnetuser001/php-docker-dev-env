@@ -38,7 +38,8 @@ docker engine version 28.5.2
 docker compose version 2.40.3  
 unoccupied ports 8080 8090 8306  
 
-[Quick reference](#reference)
+#### Quick reference <a name="up"></a>
+[CLI commands](#cli) [PhpStorm](#phpstorm) [Laravel](#laravel)  
 
 ### Step 1 - building development environment.  
 
@@ -62,7 +63,7 @@ docker compose down
 ```
 Note: the ```php-docker-dev-env/project``` directory and ```php-docker-dev-env-mysql-data``` volume with the ```project``` database will not be deleted and will remain unchanged.  
 
-### Step 2 - setting up PhpStorm.  
+### Step 2 - setting up PhpStorm. <a name="phpstorm"></a>  
 
 Open the root directory of the project, which is named ```php-docker-dev-env``` by default, in PhpStorm, and configure the following settings:  
 - CLI interpreter:
@@ -132,7 +133,7 @@ docker restart php-fpm
 
 Development directory is ```php-docker-dev-env/project```. Feel free to create something incredible!) To see the result, open in the browser [localhost:8080](http://localhost:8080).  
 
-##### Example of Laravel application setup.
+##### Example of Laravel application setup. <a name="laravel"></a>
 Attach to the ```cli``` service container:  
 ```bash
 docker exec -it cli bash
@@ -213,7 +214,7 @@ docker compose build stand-alone
 Note: make sure that the database files, such as SQLite, are located within the application in the ```php-docker-dev-env/project``` directory.  
 Note: a stand-alone application image will have only SQLite DBMS, so you need to add the required DBMS to ```php-docker-dev-env/build-app/stand-alone.Dockerfile``` if needed.
 
-#### Quick reference <a name="reference"></a>
+#### CLI commands <a name="cli"></a>
 ```bash
 docker exec -it cli bash
 ```
@@ -226,3 +227,10 @@ php artisan l5-swagger:generate
 ```bash
 php artisan test --coverage-html=coverage
 ```
+```bash
+CUID=$(id -u) CGID=$(id -g) docker compose up -d
+```
+```bash
+docker compose down
+```
+[Up](#up)
