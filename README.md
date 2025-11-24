@@ -39,7 +39,7 @@ docker compose version 2.40.3
 unoccupied ports 8080 8090 8306  
 
 #### Quick reference: <a name="up"></a>  
-[CLI commands](#cli)&emsp[PhpStorm](#phpstorm)&emsp;[Laravel](#laravel)  
+[CLI commands](#cli)&emsp;[PhpStorm](#phpstorm)&emsp;[Laravel](#laravel)  
 
 ### Step 1 - building development environment.  
 
@@ -233,4 +233,13 @@ CUID=$(id -u) CGID=$(id -g) docker compose up -d
 ```bash
 docker compose down
 ```
+```bash
+rm -rf ./* ./.??*
+```
+```bash
+composer create-project --prefer-dist laravel/laravel .
+```
+```bash
+docker restart php-fpm
+``` 
 [Up](#up)
