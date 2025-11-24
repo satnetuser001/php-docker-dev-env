@@ -38,7 +38,7 @@ docker engine version 28.5.2
 docker compose version 2.40.3  
 unoccupied ports 8080 8090 8306  
 
-### [Quick reference](#quick-reference)
+### [Quick commands](#quick-commands)
 
 ### Step 1 - building development environment.  
 
@@ -214,7 +214,7 @@ Note: make sure that the database files, such as SQLite, are located within the 
 Note: a stand-alone application image will have only SQLite DBMS, so you need to add the required DBMS to ```php-docker-dev-env/build-app/stand-alone.Dockerfile``` if needed.
 
 ### Quick reference
-<a id="quick-reference"></a>
+<a id="quick-commands"></a>
 ```bash
 docker exec -it cli bash
 ```
