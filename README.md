@@ -38,8 +38,8 @@ docker engine version 28.5.2
 docker compose version 2.40.3  
 unoccupied ports 8080 8090 8306  
 
-#### Quick reference: <a name="up"></a>
-[CLI commands](#cli)    [PhpStorm](#phpstorm)   [Laravel](#laravel)  
+#### Quick reference: <a name="up"></a>  
+[CLI commands](#cli)&ensp;[PhpStorm](#phpstorm)&emsp;[Laravel](#laravel)  
 
 ### Step 1 - building development environment.  
 
@@ -214,7 +214,7 @@ docker compose build stand-alone
 Note: make sure that the database files, such as SQLite, are located within the application in the ```php-docker-dev-env/project``` directory.  
 Note: a stand-alone application image will have only SQLite DBMS, so you need to add the required DBMS to ```php-docker-dev-env/build-app/stand-alone.Dockerfile``` if needed.
 
-#### CLI commands <a name="cli"></a>
+#### CLI commands <a name="cli"></a>  
 ```bash
 docker exec -it cli bash
 ```
