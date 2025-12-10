@@ -59,7 +59,7 @@ Note: CUID=$(id -u) CGID=$(id -g) - setting in the images the name ID and group 
 
 If you need to delete the development environment (all containers and network):
 ```bash
-docker compose down
+docker compose down --timeout 1
 ```
 Note: the ```php-docker-dev-env/project``` directory and ```php-docker-dev-env-mysql-data``` volume with the ```project``` database will not be deleted and will remain unchanged.  
 
@@ -231,7 +231,7 @@ php artisan test --coverage-html=coverage
 CUID=$(id -u) CGID=$(id -g) docker compose up -d
 ```
 ```bash
-docker compose down
+docker compose down --timeout 1
 ```
 ```bash
 rm -rf ./* ./.??*
