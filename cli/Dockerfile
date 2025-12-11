@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     unzip \
     p7zip-full \
+    git\
     tree
 
 # add PHP repository
