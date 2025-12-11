@@ -49,7 +49,7 @@ git clone https://github.com/satnetuser001/php-docker-dev-env.git
 ```
 Rename the root directory ```php-docker-dev-env``` to your project name. This is important because Docker will use this name when building images. Then, navigate to this directory.
 
-Optional step: specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```php-docker-dev-env/.env``` file, otherwise, the latest versions will be used. For the MySQL database, change the root password in the ```php-docker-dev-env/secrets/mysql_root_password.txt``` file. Exclude the ```php-docker-dev-env/secrets``` directory from Git commits by adding it to the ```php-docker-dev-env/.gitignore``` file.
+Optional step: specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```php-docker-dev-env/.env``` file, otherwise, the latest versions will be used. The earliest supported version of PHP is 7.4. For the MySQL database, change the root password in the ```php-docker-dev-env/secrets/mysql_root_password.txt``` file. Exclude the ```php-docker-dev-env/secrets``` directory from Git commits by adding it to the ```php-docker-dev-env/.gitignore``` file.
 
 Up all development containers:  
 ```bash
