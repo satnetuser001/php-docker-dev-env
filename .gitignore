@@ -1,3 +1,10 @@
+# IDEs
+/.idea/
+/.vscode/
+/.vs/
+*.sublime-project
+*.sublime-workspace
+
 # In development, exclude "secrets" directory from git commits by
 # uncommenting the following line.
-#secrets/
+#/docker/secrets/

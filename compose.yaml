@@ -3,7 +3,7 @@ services:
   cli:
     container_name: cli
     build:
-      context: ./cli
+      context: ./docker/cli
       dockerfile: Dockerfile
       args:
         PHP_VERSION: ${PHP_VERSION:-}
@@ -23,7 +23,7 @@ services:
   php-fpm:
     container_name: php-fpm
     build:
-      context: ./php-fpm
+      context: ./docker/php-fpm
       dockerfile: Dockerfile
       args:
         PHP_VERSION: ${PHP_VERSION:+${PHP_VERSION}-}
@@ -37,10 +37,10 @@ services:
         source: ./project
         target: /project
       - type: bind
-        source: ./xdebug/xdebug.ini
+        source: ./docker/xdebug/xdebug.ini
         target: /usr/local/etc/php/conf.d/xdebug.ini
       - type: bind
-        source: ./xdebug/logs
+        source: ./docker/xdebug/logs
         target: /xdebug-logs
     networks:
       - php-docker-dev-env
@@ -60,7 +60,7 @@ services:
         source: ./project
         target: /project
       - type: bind
-        source: ./nginx/conf.d
+        source: ./docker/nginx/conf.d
         target: /etc/nginx/conf.d
     networks:
       - php-docker-dev-env
@@ -99,7 +99,7 @@ services:
   production:
     build:
       context: .
-      dockerfile: ./build-app/production.Dockerfile
+      dockerfile: ./docker/build-app/production.Dockerfile
       args:
         PHP_VERSION: ${PHP_VERSION:+${PHP_VERSION}-}
     profiles:
@@ -108,7 +108,7 @@ services:
   stand-alone:
     build:
       context: .
-      dockerfile: ./build-app/stand-alone.Dockerfile
+      dockerfile: ./docker/build-app/stand-alone.Dockerfile
       args:
         PHP_VERSION: ${PHP_VERSION:+${PHP_VERSION}-}
     profiles:
@@ -116,7 +116,7 @@ services:
 
 secrets:
   mysql-root-password:
-    file: ./secrets/mysql_root_password.txt
+    file: ./docker/secrets/mysql_root_password.txt
 
 volumes:
   php-docker-dev-env-mysql-data:

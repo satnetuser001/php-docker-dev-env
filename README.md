@@ -33,10 +33,10 @@ Block-diagram of a development environment:
 </pre>
 
 System requirements:  
-linux kernel version 6.17.0-6-generic  
-docker engine version 28.5.2  
-docker compose version 2.40.3  
-unoccupied ports 8080 8090 8306  
+linux kernel version 6.17.0-23-generic  
+docker engine version 29.4.2  
+docker compose version 5.1.3  
+unoccupied ports 8080(nginx) 8090(phpMyAdmin) 8306(MySQL for IDE)  
 
 #### Quick reference: <a name="up"></a>  
 [CLI commands](#cli)&emsp;[PhpStorm](#phpstorm)&emsp;[Laravel](#laravel)  
@@ -49,7 +49,7 @@ git clone https://github.com/satnetuser001/php-docker-dev-env.git
 ```
 Rename the root directory ```php-docker-dev-env``` to your project name. This is important because Docker will use this name when building images. Then, navigate to this directory.
 
-Optional step: specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```php-docker-dev-env/.env``` file, otherwise, the latest versions will be used. The earliest supported version of PHP is 7.4. For the MySQL database, change the root password in the ```php-docker-dev-env/secrets/mysql_root_password.txt``` file. Exclude the ```php-docker-dev-env/secrets``` directory from Git commits by adding it to the ```php-docker-dev-env/.gitignore``` file.
+Optional step: specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```php-docker-dev-env/.env``` file, otherwise, the latest versions will be used. The earliest supported version of PHP is 7.4. For the MySQL database, change the root password in the ```php-docker-dev-env/docker/secrets/mysql_root_password.txt``` file. Exclude the ```php-docker-dev-env/docker/secrets``` directory from Git commits by adding it to the ```php-docker-dev-env/.gitignore``` file.
 
 Up all development containers:  
 ```bash
@@ -114,16 +114,17 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - Main Menu → View → Tool Windows → Database
     - Click ```+``` → Data Source → Select ```MySQL```
     - Fill in the fields:
-        - Driver: ```MySQL 9```
+        - Driver: ```MySQL supports since 5.2```
+        - Connection Type: ```default```
         - Host: ```localhost```
         - Port: ```8306```
         - User: ```root```
-        - Password: ```1077``` value from ```php-docker-dev-env/secrets/mysql_root_password.txt```
+        - Password: ```1077``` value from ```php-docker-dev-env/docker/secrets/mysql_root_password.txt```
         - Database: ```project```
     - Click ```OK```  
 - In browser, install ```Xdebug Helper by JetBrains``` extension, and enable Debug mode (green bug icon in toolbar).  
 
-Xdebug logs are saved to ```xdebug/logs``` directory. Xdebug settings are stored in ```xdebug/xdebug.ini``` file.  
+Xdebug logs are saved to ```docker/xdebug/logs``` directory. Xdebug settings are stored in ```docker/xdebug/xdebug.ini``` file.  
 Restart the php-fpm container after changing xdebug settings:
 ```bash
 docker restart php-fpm
@@ -131,7 +132,7 @@ docker restart php-fpm
 
 ### Step 3 - development process.
 
-Development directory is ```php-docker-dev-env/project```. Feel free to create something incredible!) To see the result, open in the browser [localhost:8080](http://localhost:8080).  
+Development directory is ```php-docker-dev-env/project```. Feel free to create something incredible! ;) To see the result, open in the browser [localhost:8080](http://localhost:8080).  
 
 ##### Example of Laravel application setup. <a name="laravel"></a>
 Attach to the ```cli``` service container:  
@@ -163,14 +164,14 @@ DB_DATABASE=project
 DB_USERNAME=root
 DB_PASSWORD=1077
 ```
-Note: DB_PASSWORD must be ```value``` from ```php-docker-dev-env/secrets/mysql_root_password.txt```.
+Note: DB_PASSWORD must be ```value``` from ```php-docker-dev-env/docker/secrets/mysql_root_password.txt```.
 
 In the ```cli``` service container make a migration for the MySQL database:  
 ```php
 php artisan migrate
 ```
 
-To see the phpMyAdmin page open in the browser [localhost:8090](http://localhost:8090). Use ```root``` for the "Username" and ```1077``` value from ```php-docker-dev-env/secrets/mysql_root_password.txt``` for the "Password".
+To see the phpMyAdmin page open in the browser [localhost:8090](http://localhost:8090). Use ```root``` for the "Username" and ```1077``` value from ```php-docker-dev-env/docker/secrets/mysql_root_password.txt``` for the "Password".
 
 ### Step 4 - build application image after finishing development.
 
@@ -212,7 +213,7 @@ If you want to build a stand-alone container from your application, exec in ```p
 docker compose build stand-alone
 ```
 Note: make sure that the database files, such as SQLite, are located within the application in the ```php-docker-dev-env/project``` directory.  
-Note: a stand-alone application image will have only SQLite DBMS, so you need to add the required DBMS to ```php-docker-dev-env/build-app/stand-alone.Dockerfile``` if needed.
+Note: a stand-alone application image will have only SQLite DBMS, so you need to add the required DBMS to ```php-docker-dev-env/docker/build-app/stand-alone.Dockerfile``` if needed.
 
 #### CLI commands <a name="cli"></a>  
 ```bash
