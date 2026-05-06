@@ -10,5 +10,8 @@ WORKDIR /app
 # copy laravel application to image in WORKDIR
 COPY ./project /app
 
-# run artisan server on port 8000 in container
-ENTRYPOINT ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# declare expose port for the PHP built-in server
+EXPOSE 8000
+
+# use PHP built-in server as the entrypoint
+ENTRYPOINT ["php", "-S", "0.0.0.0:8000", "-t", "public"]

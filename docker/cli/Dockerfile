@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y \
     php${PHP_VERSION}-zip \
     php${PHP_VERSION}-tokenizer \
     php${PHP_VERSION}-common \
-    php${PHP_VERSION}-mysql \
+    php${PHP_VERSION}-pgsql \
     php${PHP_VERSION}-pcov
 
 # build argument for Composer version

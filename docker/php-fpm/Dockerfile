@@ -8,11 +8,12 @@ FROM php:${PHP_VERSION}fpm
 RUN apt-get update && apt-get install -y \
     git \
     libicu-dev \
+    libpq-dev \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql intl
+RUN docker-php-ext-install pdo pdo_pgsql intl
 
 # build argument for Xdebug version
 ARG XDEBUG_VERSION
