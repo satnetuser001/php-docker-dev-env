@@ -90,7 +90,7 @@ services:
     ports:
       - "8090:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_EMAIL: root
       PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/postgres-root-password
       TZ: ${TZ}
     secrets:
