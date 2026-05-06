@@ -4,7 +4,12 @@
 # install php without interactive questionsl.
 
 # base docker image
-FROM ubuntu:latest
+#FROM ubuntu:latest
+
+# ubuntu:latest now points to Ubuntu 25.04 "Resolute", which is not yet
+# supported by "ppa:ondrej/php", causing a 404 error during build. Pinned
+# to 24.04 LTS (Noble) until PPA support is added.
+FROM ubuntu:24.04
 
 # install system dependencies
 RUN apt-get update && apt-get install -y \
