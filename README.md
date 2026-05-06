@@ -158,7 +158,7 @@ In PhpStorm edit ```php-docker-dev-env/project/.env``` file for PostgreSQL datab
 ```text
 DB_CONNECTION=pgsql
 DB_HOST=postgres
-DB_PORT=8432
+DB_PORT=5432
 DB_DATABASE=project
 DB_USERNAME=root
 DB_PASSWORD=1077

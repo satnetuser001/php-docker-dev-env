@@ -91,11 +91,12 @@ services:
       - "8090:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
-      PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/pgadmin-password
+      PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/pgadmin-admin-password
+      PGPASSFILE: /run/secrets/pgadmin-pgpass
       TZ: ${TZ}
     secrets:
-      - postgres-root-password
-      - pgadmin-password
+      - pgadmin-admin-password
+      - pgadmin-pgpass
     volumes:
       - type: bind
         source: ./docker/pgadmin/servers.json
@@ -126,8 +127,10 @@ services:
 secrets:
   postgres-root-password:
     file: ./docker/secrets/postgres_root_password.txt
-  pgadmin-password:
-    file: ./docker/secrets/pgadmin_password.txt
+  pgadmin-admin-password:
+    file: ./docker/secrets/pgadmin_admin_password.txt
+  pgadmin-pgpass:
+    file: ./docker/secrets/pgadmin_pgpass.txt
 
 volumes:
   php-docker-dev-env-postgres-data:
