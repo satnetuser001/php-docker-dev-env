@@ -86,14 +86,13 @@ services:
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
-    user: ${CUID:-0}:${CGID:-0}
     restart: unless-stopped
     ports:
       - "8090:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
       PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/pgadmin-admin-password
-      PGPASSFILE: /run/secrets/pgadmin-pgpass
+      PGPASSFILE: /pgpass
       TZ: ${TZ}
     secrets:
       - pgadmin-admin-password
@@ -102,6 +101,10 @@ services:
       - type: bind
         source: ./docker/pgadmin/servers.json
         target: /pgadmin4/servers.json
+      - type: bind
+        source: ./docker/secrets/pgadmin_pgpass.txt
+        target: /pgpass
+        read_only: true
     depends_on:
       - postgres
     networks:
@@ -130,8 +133,6 @@ secrets:
     file: ./docker/secrets/postgres_root_password.txt
   pgadmin-admin-password:
     file: ./docker/secrets/pgadmin_admin_password.txt
-  pgadmin-pgpass:
-    file: ./docker/secrets/pgadmin_pgpass.txt
 
 volumes:
   php-docker-dev-env-postgres-data:
