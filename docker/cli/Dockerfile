@@ -40,6 +40,9 @@ RUN apt-get update && apt-get install -y \
     php${PHP_VERSION}-pgsql \
     php${PHP_VERSION}-pcov
 
+# enable PHP extensions that are installed but not auto-enabled
+RUN phpenmod -v ${PHP_VERSION} xml dom simplexml
+
 # build argument for Composer version
 ARG COMPOSER_VERSION
 
