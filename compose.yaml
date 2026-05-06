@@ -79,7 +79,7 @@ services:
     secrets:
       - postgres-root-password
     volumes:
-      - php-docker-dev-env-postgres-data:/var/lib/postgresql/data
+      - php-docker-dev-env-postgres-data:/var/lib/postgresql
     networks:
       - php-docker-dev-env
 
