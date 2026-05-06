@@ -96,7 +96,6 @@ services:
       TZ: ${TZ}
     secrets:
       - pgadmin-admin-password
-      - pgadmin-pgpass
     volumes:
       - type: bind
         source: ./docker/pgadmin/servers.json
