@@ -101,10 +101,6 @@ services:
       - type: bind
         source: ./docker/pgadmin/servers.json
         target: /pgadmin4/servers.json
-      - type: bind
-        source: ./docker/secrets/pgadmin_pgpass.txt
-        target: /pgpass
-        read_only: true
     depends_on:
       - postgres
     networks:
