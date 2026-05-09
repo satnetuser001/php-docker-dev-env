@@ -92,10 +92,11 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
       PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/pgadmin-admin-password
-      PGPASSFILE: /pgpass
+      PGPASSFILE: /run/secrets/pgpass
       TZ: ${TZ}
     secrets:
       - pgadmin-admin-password
+      - pgpass
     volumes:
       - type: bind
         source: ./docker/pgadmin/servers.json
@@ -132,6 +133,8 @@ secrets:
     file: ./docker/secrets/postgres_root_password.txt
   pgadmin-admin-password:
     file: ./docker/secrets/pgadmin_admin_password.txt
+  pgpass:
+    file: ./docker/secrets/pgadmin_pgpass.txt
 
 volumes:
   php-docker-dev-env-postgres-data:
