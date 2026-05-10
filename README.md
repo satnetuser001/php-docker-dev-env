@@ -174,9 +174,9 @@ In the ```cli``` service container make a migration for the PostgreSQL database:
 php artisan migrate
 ```
 
-To access the pgAdmin page, open [http://localhost:8090](http://localhost:8090) in your browser.
-Use `admin@admin.com` as the "Email Address". This value is defined by `PGADMIN_DEFAULT_EMAIL` in `php-docker-dev-env/.env`.
-Use `1077` as the "Password". This value is stored in `php-docker-dev-env/docker/secrets/pgadmin_admin_password.txt`.
+To access the pgAdmin page, open [http://localhost:8090](http://localhost:8090) in your browser.  
+Use `admin@admin.com` as the "Email Address". This value is defined by `PGADMIN_DEFAULT_EMAIL` in `php-docker-dev-env/.env`.  
+Use `1077` as the "Password". This value is stored in `php-docker-dev-env/docker/secrets/pgadmin_admin_password.txt`.  
 
 ### Step 4 – build the application image after finishing development.
 
