@@ -48,13 +48,17 @@ git clone https://github.com/satnetuser001/php-docker-dev-env.git
 ```
 Rename the root directory ```php-docker-dev-env``` to your project name. This is important because Docker will use this name when building images. Then, navigate to this directory.
 
-Optional step: specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```php-docker-dev-env/.env``` file, otherwise, the latest versions will be used. The earliest supported version of PHP is 7.4. For the PostgreSQL database, change the root password in the ```php-docker-dev-env/docker/secrets/postgres_root_password.txt``` file. Exclude the ```php-docker-dev-env/docker/secrets``` directory from Git commits by adding it to the ```php-docker-dev-env/.gitignore``` file.
+Optional steps:  
+- Specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```php-docker-dev-env/.env``` file, otherwise, the latest versions will be used. The earliest supported version of PHP is 7.4.  
+- For the PostgreSQL database, change the root password in the ```php-docker-dev-env/docker/secrets/postgres_root_password.txt``` file.  
+- For the pgAdmin, change the administrator password in the ```php-docker-dev-env/docker/secrets/pgadmin_admin_password.txt``` file.  
+- Exclude the ```php-docker-dev-env/docker/secrets``` directory from Git commits by adding it to the ```php-docker-dev-env/.gitignore``` file.  
 
 Up all development containers:
 ```bash
 CUID=$(id -u) CGID=$(id -g) docker compose up -d
 ```
-Note: CUID=$(id -u) CGID=$(id -g) - setting in the images the name ID and group ID of the current user of the host system to set the correct owner for the application files.  
+Note: CUID=$(id -u) and CGID=$(id -g) set the user ID and group ID inside the containers to match the current host user, ensuring correct ownership and permissions for project files accessed from the containers.  
 
 If you need to delete the development environment (all containers and network):
 ```bash
@@ -123,7 +127,7 @@ Open the root directory of the project, which is named ```php-docker-dev-env``` 
     - Click ```OK```  
 - In browser, install ```Xdebug Helper by JetBrains``` extension, and enable Debug mode (green bug icon in toolbar).  
 
-Xdebug logs are saved to ```docker/xdebug/logs``` directory. Xdebug settings are stored in ```docker/xdebug/xdebug.ini``` file.  
+Xdebug logs are saved to ```php-docker-dev-env/docker/xdebug/logs``` directory. Xdebug settings are stored in ```php-docker-dev-env/docker/xdebug/xdebug.ini``` file.  
 Restart the php-fpm container after changing xdebug settings:
 ```bash
 docker restart php-fpm
@@ -170,33 +174,35 @@ In the ```cli``` service container make a migration for the PostgreSQL database:
 php artisan migrate
 ```
 
-To see the pgAdmin page open in the browser [localhost:8090](http://localhost:8090). Use ```admin@admin.com``` for the "Email" and ```1077``` value from ```php-docker-dev-env/docker/secrets/postgres_root_password.txt``` for the "Password".
+To access the pgAdmin page, open [http://localhost:8090](http://localhost:8090) in your browser.
+Use `admin@admin.com` as the "Email Address". This value is defined by `PGADMIN_DEFAULT_EMAIL` in `php-docker-dev-env/.env`.
+Use `1077` as the "Password". This value is stored in `php-docker-dev-env/docker/secrets/pgadmin_admin_password.txt`.
 
 ### Step 4 – build the application image after finishing development.
 
 It is supposed that the production environment architecture is similar to the following block-diagram:
 <pre>
-+-----------------+
-| request from    |
-| client browser  |
-+-----------------+
-         |
-         V
-+-----------------+
-| nginx container |
-| port 80         |
-+-----------------+
-   |                                           +----------------------------+
-   |    +---------------+    +------------+    | "application-1" database   |
-   |--->| application-1 |--->| postgres-1 |--->| production-postgres-data-1 |
-   |    | container     |    | container  |    | volume                     |
-   .    +---------------+    +------------+    +----------------------------+
-   .
-   .                                           +----------------------------+
-   |    +---------------+    +------------+    | "application-N" database   |
-   |--->| application-N |--->| postgres-N |--->| production-postgres-data-N |
-        | container     |    | container  |    | volume                     |
-        +---------------+    +------------+    +----------------------------+
++----------------+
+| request from   |
+| client browser |
++----------------+
+    |
+    V
++----------------+
+| web server     |
+| container      |
++----------------+
+    |
+    |    +---------------+    +-----------+    +------------+
+    |--->| application-1 |--->| DBMS-1    |--->| database-1 |
+    |    | container     |    | container |    | volume     |
+    .    +---------------+    +-----------+    +------------+
+    .
+    .
+    |    +---------------+    +-----------+    +------------+
+    |--->| application-N |--->| DBMS-N    |--->| database-N |
+         | container     |    | container |    | volume     |
+         +---------------+    +-----------+    +------------+
 </pre>
 
 Prepare your application for deployment according to the documentation of the framework you are using.
