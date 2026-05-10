@@ -50,7 +50,7 @@ Rename the root directory ```php-docker-dev-env``` to your project name. This is
 
 Optional steps:  
 - Specify the required versions of PHP, Xdebug, Composer, and Node.js in the ```php-docker-dev-env/.env``` file, otherwise, the latest versions will be used. The earliest supported version of PHP is 7.4.  
-- For the PostgreSQL database, change the root password in the ```php-docker-dev-env/docker/secrets/postgres_root_password.txt``` file.  
+- For the PostgreSQL, change the root password in the ```php-docker-dev-env/docker/secrets/postgres_root_password.txt``` file.  
 - For the pgAdmin, change the administrator password in the ```php-docker-dev-env/docker/secrets/pgadmin_admin_password.txt``` file.  
 - Exclude the ```php-docker-dev-env/docker/secrets``` directory from Git commits by adding it to the ```php-docker-dev-env/.gitignore``` file.  
 
