@@ -68,7 +68,7 @@ Note: the ```php-docker-dev-env/project``` directory and ```php-docker-dev-env-p
 
 ### Step 2 – setting up PhpStorm. <a name="phpstorm"></a>  
 
-Open the root directory of the project, which is named ```php-docker-dev-env``` by default, in PhpStorm, and configure the following settings:  
+Open the root directory, which is named ```php-docker-dev-env``` by default, in PhpStorm, and configure the following settings:  
 - CLI interpreter:
     - Main Menu → Settings or Ctrl+Alt+S
     - Select "PHP" section → Next to "CLI Interpreter" Click ```...```
