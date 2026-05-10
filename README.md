@@ -6,18 +6,18 @@ Block-diagram of a development environment:
 | request from      |
 | client browser    |
 +-------------------+
-         |
-         V                       +---------------------------+
-+-------------------+            | cli service container     |
-| nginx container   |            | for working with artisan, |
-| port 8080         |            | Composer, Node.js, npm    |
-+-------------------+            +---------------------------+
-         |                                |
-         V                                V
-+-------------------+            +---------------------------+
-| php-fpm container |            | "project" directory with  |
-| with Xdebug       |----------->| SQLite files bind mount   |
-+-------------------+            +---------------------------+
+         |                       +---------------------------+
+         V                       | cli service container     |
++-------------------+            | for working with artisan, |
+| nginx container   |            | Composer, Node.js, npm    |
+| port 8080         |            +---------------------------+
++-------------------+                     |
+         |                                V
+         V                    +------------------------------+
++-------------------+         | "php-docker-dev-env/project" |
+| php-fpm container |         | directory with SQLite files  |
+| with Xdebug       |-------->| bind mount                   |
++-------------------+         +------------------------------+
    |
    |      +-------------------+
    |      | pgadmin container |
