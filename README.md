@@ -58,7 +58,7 @@ Up all development containers:
 ```bash
 CUID=$(id -u) CGID=$(id -g) docker compose up -d
 ```
-Note: CUID=$(id -u) and CGID=$(id -g) set the user ID and group ID inside the containers to match the current host user, ensuring correct ownership and permissions for project files accessed from the containers.  
+Note: CUID=$(id -u) and CGID=$(id -g) set the user ID and group ID inside the containers to match the current host user, ensuring correct ownership and permissions for ```php-docker-dev-env/project``` files accessed from the containers.  
 
 If you need to delete the development environment (all containers and network):
 ```bash
